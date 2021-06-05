@@ -6,7 +6,7 @@ The module will deploy an AWS Lambda function. The lambda will be watching the A
 ## Usage
 ```
 module "nlb-alb-connector" {
-  source = "lvthillo/nlb/alb/connector"
+  source = "lvthillo/alb-connector/nlb"
   nlb_target_arn = aws_lb_target_group.nlb-target.arn
   bucket_name = "my-nlb-alb-connector-bucket"
   alb_listener = 443

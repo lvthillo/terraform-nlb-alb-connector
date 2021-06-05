@@ -1,3 +1,19 @@
+# Terraform NLB ALB connector
+The NLB ALB connector is a Terraform module which makes it easy to create an [AWS Network Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) (L4) in front of an [AWS Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) (L7). A potential use case could be when a private connection from a different VPC to an ALB in your VPC is needed. AWS PrivateLink uses Network Load Balancers to connect interface endpoints to services. The TCP listener on a NLB accepts the private traffic and forwards it to an internal ALB. The ALB terminates TLS, examines HTTP headers, and routes requests based on your configured rules to target groups with your instances or containers. 
+
+The module will deploy an AWS Lambda function. The lambda will be watching the ALB for IP address changes and will update the NLB target group when needed.
+
+## Usage
+```
+module "nlb-alb-connector" {
+  source = "lvthillo/nlb/alb/connector"
+  nlb_target_arn = aws_lb_target_group.nlb-target.arn
+  bucket_name = "my-nlb-alb-connector-bucket"
+  alb_listener = 443
+  alb_dns_name = aws_lb.my-alb.dns_name
+}
+```
+
 ## Requirements
 
 | Name | Version |

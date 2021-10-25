@@ -35,3 +35,15 @@ variable "bucket_name" {
   description = "Name of required S3 bucket used by Lambda"
   type        = string
 }
+
+variable "bucket_destroy" {
+  description = "Force destroy of S3 bucket used by Lambda"
+  type        = string
+  default     = "false"
+}
+
+variable "cloudwatch_event_rule_name" {
+  description = "Name of Cloudwatch event rule"
+  type        = string
+  default     = ""
+}

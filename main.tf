@@ -129,15 +129,16 @@ resource "aws_lambda_function" "lambda" {
 #### S3 Bucket ####
 ###################
 resource "aws_s3_bucket" "bucket" {
-  bucket = var.bucket_name
-  acl    = "private"
+  bucket        = var.bucket_name
+  acl           = "private"
+  force_destroy = var.bucket_destroy
 }
 
 #############################################
 #### CloudWatch Event to trigger Lambda ####
 #############################################
 resource "aws_cloudwatch_event_rule" "every_minute" {
-  name                = "every-minute"
+  name                = var.cloudwatch_event_rule_name == "" ? "every-minute" : var.cloudwatch_event_rule_name
   description         = "Fires every minute"
   schedule_expression = "rate(1 minute)"
 }
